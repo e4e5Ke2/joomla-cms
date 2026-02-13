@@ -80,15 +80,14 @@ class TagsPopularHelper implements DatabaseAwareInterface
         // Filter on category state
         $query->join(
             'INNER',
-            $db->quoteName('#__ucm_content', 'ucm'),
-            $db->quoteName('m.content_item_id') . ' = ' . $db->quoteName('ucm.core_content_item_id') .
-                ' AND ' . $db->quoteName('m.type_id') . ' = ' . $db->quoteName('ucm.core_type_id')
+            $db->quoteName('#__content', 'con'),
+            $db->quoteName('m.content_item_id') . ' = ' . $db->quoteName('con.id')
         );
 
         $query->join(
             'INNER',
             $db->quoteName('#__categories', 'cat'),
-            $db->quoteName('ucm.core_catid') . ' = ' . $db->quoteName('cat.id')
+            $db->quoteName('con.catid') . ' = ' . $db->quoteName('cat.id')
         );
 
         $query->where($db->quoteName('cat.published') . ' > 0');
